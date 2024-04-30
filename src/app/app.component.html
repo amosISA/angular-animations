@@ -1,1 +1,17 @@
-<app-nx-welcome></app-nx-welcome> <router-outlet></router-outlet>
+<div class="flex flex-col p-2">
+  <h1>Angular Animations</h1>
+  <div class="sticky top-0 z-20">
+    <button (click)="toggle()" class="px-4 py-2 font-bold text-white bg-blue-500 rounded">TOGGLE</button>
+    <div [@myAnimation]="isOpen() ? 'open': 'closed'">
+      <p>Animaciones en Angular</p>
+    </div>
+
+    <button (click)="enterLeave.set(!enterLeave())" class="px-4 py-2 font-bold text-white bg-blue-500 rounded">TOGGLE</button>
+    @if (enterLeave()) {
+      <div @enterLeave>
+        <p>Enter y Leave transitions</p>
+      </div>
+    }
+  </div>
+  <router-outlet></router-outlet>
+</div>
