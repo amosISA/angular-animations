@@ -1,5 +1,4 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, signal } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, signal, viewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -7,46 +6,62 @@ import { RouterOutlet } from '@angular/router';
   imports: [RouterOutlet],
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
-  animations: [
-    trigger('myAnimation', [
-      state('open', style({
-        height: '200px',
-        opacity: 1,
-        backgroundColor: 'red'
-      })),
-      state('closed', style({
-        height: '100px',
-        opacity: 0.8,
-        backgroundColor: 'yellow'
-      })),
-      transition('open => closed', [animate('1s')]),
-      transition('closed => open', [animate('0.1s')]),
-    ]),
-    trigger('enterLeave', [
-      transition(':enter', [
-        style({
-          opacity: 0,
-          transform: 'translateY(10px)'
-        }),
-        animate('500ms', style({
-          opacity: 1,
-          transform: 'translateY(0px)'
-        }))
-      ]),
-      transition(':leave', [
-        animate('500ms', style({
-          opacity: 0,
-          transform: 'translateY(10px)'
-        }))
-      ])
-    ])
-  ]
+  styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  enterLeave = signal(false);
-  isOpen = signal(true);
-  toggle(): void {
-    this.isOpen.set(!this.isOpen());
+export class AppComponent implements OnInit {
+  seleccionado = signal(false);
+  zoom = signal(false);
+
+  webApiDiv = viewChild<ElementRef>('webApiDiv');
+
+  shakeAnimations() {
+    return [
+      { transform: 'rotate(0)' },
+      { transform: 'rotate(2deg)' },
+      { transform: 'rotate(-2deg)' },
+      { transform: 'rotate(0)' },
+    ];
+  }
+
+  shakeTimer() {
+    return {
+      duration: 400,
+      iterations: 3
+    }
+  }
+
+  ngOnInit(): void {
+    this.webApiDiv()?.nativeElement.animate(
+      this.shakeAnimations(),
+      this.shakeTimer()
+    );
+  }
+
+  @HostListener('transitionstart', ['$event'])
+  onTransitionStart(event: TransitionEvent): void {
+    console.log('Transition start', event);
+  }
+
+  @HostListener('transitionend', ['$event'])
+  onTransitionEnd(event: TransitionEvent): void {
+    console.log('Transition end', event);
+  }
+
+  @HostListener('animationstart', ['$event'])
+  onAnimationStart(event: AnimationEvent): void {
+    console.log('Keyframes start', event);
+  }
+
+  @HostListener('animationend', ['$event'])
+  onAnimationEnd(event: AnimationEvent): void {
+    console.log('Keyframes end', event);
+  }
+
+  zoomIn(): string {
+    return `scale(0.5)`;
+  }
+
+  zoomOut(): string {
+    return `scale(1)`;
   }
 }

@@ -1,17 +1,40 @@
 <div class="flex flex-col p-2">
   <h1>Angular Animations</h1>
   <div class="sticky top-0 z-20">
-    <button (click)="toggle()" class="px-4 py-2 font-bold text-white bg-blue-500 rounded">TOGGLE</button>
-    <div [@myAnimation]="isOpen() ? 'open': 'closed'">
-      <p>Animaciones en Angular</p>
+    <div class="mb-3">
+      <h3>Class Based Animations</h3>
+      <div id="myDiv" [class.mover]="seleccionado()">
+        <p>Animando!</p>
+      </div>
+      <button class="bg-blue-500 rounded" (click)="seleccionado.set(!seleccionado())">GO!</button>
     </div>
 
-    <button (click)="enterLeave.set(!enterLeave())" class="px-4 py-2 font-bold text-white bg-blue-500 rounded">TOGGLE</button>
-    @if (enterLeave()) {
-      <div @enterLeave>
-        <p>Enter y Leave transitions</p>
+    <div class="mb-3">
+      <h3>Inline Animations</h3>
+      <div
+        [style.transition]="'0.9s'"
+        [style.transform]="zoom() ? zoomIn() : zoomOut()">
+        <p>Zoom IN and Zoom OUT</p>
       </div>
-    }
+      <button class="bg-blue-500 rounded" (click)="zoom.set(!zoom())">ZOOM!</button>
+    </div>
+
+    <div class="mb-3">
+      <h3>Web API Animations</h3>
+      <div #webApiDiv>
+        <p>Web API DIV</p>
+      </div>
+    </div>
+
+    <div>
+      <h3>Thrid-party libraries</h3>
+      <ul>
+        <li>animate.css</li>
+        <li>grennsock</li>
+        <li>motion one</li>
+        <li>popmotion</li>
+      </ul>
+    </div>
   </div>
   <router-outlet></router-outlet>
 </div>

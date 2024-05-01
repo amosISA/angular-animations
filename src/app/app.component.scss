@@ -1,0 +1,19 @@
+/* #myDiv {
+    transition: all 1s;
+} */
+#myDiv.mover {
+    /* transform: scale(0.9); */
+    animation: mover 1s;
+}
+
+@keyframes mover {
+    0% {
+        transform: scale(0.9);
+    }
+    50% {
+        transform: scale(0.4);
+    }
+    100% {
+        transform: scale(0.2);
+    }
+}
