@@ -1,17 +1,31 @@
 <div class="flex flex-col p-2">
   <h1>Angular Animations</h1>
   <div class="sticky top-0 z-20">
-    <button (click)="toggle()" class="px-4 py-2 font-bold text-white bg-blue-500 rounded">TOGGLE</button>
-    <div [@myAnimation]="isOpen() ? 'open': 'closed'">
-      <p>Animaciones en Angular</p>
+    <h3>query()</h3>
+    <div>
+      <div [@queryAnimation]="animation()" (@queryAnimation.done)="animation.set(null)" class="flex flex-row flex-wrap gap-2 mb-2 overflow-auto">
+        @for (item of [0,1,2,3,4,5]; track $index) {
+          <div class="border-black card shrink-0 border-x border-y">
+            Soy el item {{ item }}
+          </div>
+        }
+      </div>
+    </div>
+    <div class="flex gap-4">
+      <button (click)="animation.set('conLimite')" class="px-4 py-2 font-bold text-white bg-blue-500 rounded">Con límite</button>
+      <button (click)="animation.set('sinLimite')" class="px-4 py-2 font-bold text-white bg-blue-500 rounded">Sin límite</button>
     </div>
 
-    <button (click)="enterLeave.set(!enterLeave())" class="px-4 py-2 font-bold text-white bg-blue-500 rounded">TOGGLE</button>
-    @if (enterLeave()) {
-      <div @enterLeave>
-        <p>Enter y Leave transitions</p>
+    <br>
+
+    <h3>childAnimations()</h3>
+    @if (isDisplayed()) {
+      <div class="flex flex-col gap-2" @container>
+        <div @enterExitLeft>HIJO 1</div>
+        <div @enterExitRight> HIJO 2</div>
       </div>
     }
+    <button (click)="isDisplayed.set(!isDisplayed())" class="px-4 py-2 font-bold text-white bg-blue-500 rounded">Toggle hijos</button>
   </div>
   <router-outlet></router-outlet>
 </div>
