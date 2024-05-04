@@ -9,7 +9,3 @@ export const appConfig: ApplicationConfig = {
     provideAnimations()
   ],
 };
-
-// old value .... new value
-// before v4
-// eager loaded

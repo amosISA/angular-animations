@@ -1,17 +1,66 @@
 <div class="flex flex-col p-2">
-  <h1>Angular Animations</h1>
+  <h1>Advanced Angular Animations</h1>
   <div class="sticky top-0 z-20">
-    <button (click)="toggle()" class="px-4 py-2 font-bold text-white bg-blue-500 rounded">TOGGLE</button>
-    <div [@myAnimation]="isOpen() ? 'open': 'closed'">
-      <p>Animaciones en Angular</p>
+    <div class="p-10">
+      <h3>IN SEQUENCE (ONE AFTER OTHER)</h3>
+      @if (fadeInGrowSequence()) {
+        <div @fadeGrowSequence class="flex flex-row gap-2">
+          @if (true) {
+            <div class="rounded-sm">PRIMERO</div>
+            <div class="rounded-sm">SEGUNDO</div>
+            <div class="rounded-sm">TERCERO</div>
+          }
+        </div>
+      }
+  
+      <button (click)="fadeInGrowSequence.set(!fadeInGrowSequence())" class="px-4 py-2 font-bold text-white bg-blue-500 rounded">TOGGLE</button>
     </div>
 
-    <button (click)="enterLeave.set(!enterLeave())" class="px-4 py-2 font-bold text-white bg-blue-500 rounded">TOGGLE</button>
-    @if (enterLeave()) {
-      <div @enterLeave>
-        <p>Enter y Leave transitions</p>
-      </div>
-    }
+
+    <div class="p-10">
+      <h3>IN GROUP (PARALEL)</h3>
+      @if (fadeInGrowGroup()) {
+        <div @fadeGrowGroup class="flex flex-row gap-2">
+          @if (true) {
+            <div class="rounded-sm bg-slate-400">PRIMERO</div>
+            <div class="rounded-sm bg-slate-400">SEGUNDO</div>
+            <div class="rounded-sm bg-slate-400">TERCERO</div>
+          }
+        </div>
+      }
+  
+      <button (click)="fadeInGrowGroup.set(!fadeInGrowGroup())" class="px-4 py-2 font-bold text-white bg-blue-500 rounded">TOGGLE</button>
+    </div>
+
+    <div class="p-10">
+      <h3>STAGGER (GROUP + SEQUENCE COMBINATION)</h3>
+      @if (fadeInGrowStagger()) {
+        <div @fadeGrowStagger class="flex flex-row gap-2">
+          @if (true) {
+            <div class="rounded-sm bg-slate-400">PRIMERO</div>
+            <div class="rounded-sm bg-slate-400">SEGUNDO</div>
+            <div class="rounded-sm bg-slate-400">TERCERO</div>
+          }
+        </div>
+      }
+  
+      <button (click)="fadeInGrowStagger.set(!fadeInGrowStagger())" class="px-4 py-2 font-bold text-white bg-blue-500 rounded">TOGGLE</button>
+    </div>
+
+    <div class="p-10">
+      <h3>KEYFRAMES</h3>
+      @if (fadeInGrowKeyframes()) {
+        <div @fadeSlideGrowKeyframe class="flex flex-row gap-2">
+          @if (true) {
+            <div class="rounded-sm bg-slate-400">PRIMERO</div>
+            <div class="rounded-sm bg-slate-400">SEGUNDO</div>
+            <div class="rounded-sm bg-slate-400">TERCERO</div>
+          }
+        </div>
+      }
+  
+      <button (click)="fadeInGrowKeyframes.set(!fadeInGrowKeyframes())" class="px-4 py-2 font-bold text-white bg-blue-500 rounded">TOGGLE</button>
+    </div>
   </div>
   <router-outlet></router-outlet>
 </div>
