@@ -1,17 +1,18 @@
 <div class="flex flex-col p-2">
-  <h1>Angular Animations</h1>
+  <h1>Angular Route Transition Animations</h1>
   <div class="sticky top-0 z-20">
-    <button (click)="toggle()" class="px-4 py-2 font-bold text-white bg-blue-500 rounded">TOGGLE</button>
-    <div [@myAnimation]="isOpen() ? 'open': 'closed'">
-      <p>Animaciones en Angular</p>
+    <div class="flex flex-row flex-wrap gap-4 py-2">
+      @for (route of routes(); track route) {
+        <a
+          [routerLink]="'/' + route"
+          class="px-2 font-bold text-white bg-blue-500 rounded">
+          {{ route | uppercase }}
+        </a>
+      }
     </div>
-
-    <button (click)="enterLeave.set(!enterLeave())" class="px-4 py-2 font-bold text-white bg-blue-500 rounded">TOGGLE</button>
-    @if (enterLeave()) {
-      <div @enterLeave>
-        <p>Enter y Leave transitions</p>
-      </div>
-    }
   </div>
-  <router-outlet></router-outlet>
+</div>
+
+<div [@routeAnimations]="getRouteAnimationData()" class="flex flex-col p-2">
+  <router-outlet />
 </div>
