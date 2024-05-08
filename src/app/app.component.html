@@ -1,18 +1,16 @@
 <div class="flex flex-col p-2">
-  <h1>Angular Route Transition Animations</h1>
-  <div class="sticky top-0 z-20">
-    <div class="flex flex-row flex-wrap gap-4 py-2">
-      @for (route of routes(); track route) {
-        <a
-          [routerLink]="'/' + route"
-          class="px-2 font-bold text-white bg-blue-500 rounded">
-          {{ route | uppercase }}
-        </a>
-      }
-    </div>
+  <div class="flex flex-row justify-between">
+    <h1>Pókemon App</h1>
+    <img src="assets/codigotipadologo.png" width="50" height="50" />
   </div>
+  <input
+    #inputSearch
+    (input)="getPokemon(inputSearch.value)"
+    type="text"
+    placeholder="Buscar Pokémon"
+    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
 </div>
 
-<div [@routeAnimations]="getRouteAnimationData()" class="flex flex-col p-2">
+<div class="flex flex-col p-2">
   <router-outlet />
 </div>

@@ -1,21 +1,23 @@
-import { UpperCasePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
-import { ChildrenOutletContexts, Data, RouterLink, RouterOutlet } from '@angular/router';
-import { slideInAnimation } from './slideInAnimation';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { PokemonComponent } from './pokemon.component';
 
 @Component({
   standalone: true,
-  imports: [RouterOutlet, UpperCasePipe, RouterLink],
+  imports: [RouterOutlet, RouterLink, FormsModule, PokemonComponent],
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
-  animations: [slideInAnimation]
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  routes = signal(['home', 'about', 'profile']);
-  contexts = inject(ChildrenOutletContexts);
+  search = signal<number | string | null>(null);
+  router = inject(Router);
 
-  getRouteAnimationData(): Data | undefined {
-    return this.contexts.getContext('primary')?.route?.snapshot?.data?.['animation'];
+  getPokemon(value: number | string): void {
+    this.search.set(value);
+    if (this.search()) {
+      this.router.navigateByUrl('/pokemon/' + this.search());
+    }
   }
 }

@@ -3,3 +3,39 @@
 @tailwind utilities;
 
 /* You can add global styles to this file, and also import other style files */
+.pokemon-container {
+  view-transition-name: pokemon;
+}
+
+::view-transition-old(pokemon),
+::view-transition-new(pokemon) {
+  animation-duration: 2s;
+}
+
+::view-transition-old(root) {
+  animation: none;
+}
+
+::view-transition-new(root) {
+  animation: none;
+}
+
+/* @keyframes rotate-out {
+    to {
+      transform: rotate(90deg);
+    }
+  }
+  @keyframes rotate-in {
+    from {
+      transform: rotate(-90deg);
+    }
+  }
+  ::view-transition-old(pokemon),
+  ::view-transition-new(pokemon) {
+    animation-duration: 200ms;
+    animation-name: -ua-view-transition-fade-in, rotate-in;
+  }
+  ::view-transition-old(pokemon) {
+    animation-name: -ua-view-transition-fade-out, rotate-out;
+  } */
+  
